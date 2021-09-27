@@ -3,17 +3,13 @@ const mower = require('mower.js');
 describe('Mower file test case ', ()=> {
 
 	beforeAll(() => {
-		this.instance = [mower.setConfigOption];
 	}); 
 	afterAll(() => {
-		[mower.setConfigOption] = this.instance;
 	});
 	describe('init funtion', ()=> {
 		let params;
 		let instance 
 		beforeAll(() => {
-			//jest.spyOn(mower, 'setConfigOption').mockReturnValue('c');
-			//mower.setConfigOption = jest.fn(() => '');
 		}); 
         beforeEach(() => {
             params = { 
@@ -22,8 +18,24 @@ describe('Mower file test case ', ()=> {
             }
 		});
 		
-		it('should return the string WrongParam in case of invalid params : start position invalid', done => {
+		it('should return the string WrongParam in case of invalid params : start position out of the lawn', done => {
             params.startPosition = '1 6 S'
+			mower.initialisation(params.mowSize, params.startPosition).catch((error) => {
+				expect(error).toBe('WrongParam');
+			    done();
+			});
+		});
+
+		it('should return the string WrongParam in case of invalid params : direction invalid', done => {
+            params.startPosition = '1 1 F'
+			mower.initialisation(params.mowSize, params.startPosition).catch((error) => {
+				expect(error).toBe('WrongParam');
+			    done();
+			});
+		});
+
+		it('should return the string WrongParam in case of invalid params : Invalid start position format', done => {
+            params.startPosition = '11F'
 			mower.initialisation(params.mowSize, params.startPosition).catch((error) => {
 				expect(error).toBe('WrongParam');
 			    done();

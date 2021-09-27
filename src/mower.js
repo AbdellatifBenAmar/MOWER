@@ -19,13 +19,11 @@ function getCurrentConfig() {
 };
 
 function setConfigOption(elementName, elementValue ) {
-    //console.log('[setConfigOption]', elementName);
     mowerConfig[elementName] = elementValue;
 }
 
 function applyRotation (rotationDirection, currentDirection) {
     let index = (rotationRule.indexOf(currentDirection) + rotationDirection + rotationRule.length) % rotationRule.length;
-    //console.log('[applyRotation]', rotationDirection, '::' , currentDirection, '=>', rotationRule[index]);
     return rotationRule[index];
 }
 
@@ -76,27 +74,32 @@ function applyMove (moveOperation, currentPositionObj) {
             console.log('Indefined move ');
             return currentPositionObj;
     }
-    //console.log('>>>>>>> position after move', JSON.stringify(currentPositionObj));
     return currentPositionObj;
 }
 
 /* Exported functions */
 function initialisation(sizeStr, positionStr) {
-    if (sizeStr.length && positionStr.length === 0) {
+    if (!sizeStr.length || !positionStr.length) {
         return Promise.reject('WrongParam');
     }
     let words = sizeStr.split(' ');
+    if (words.length < 2) {
+        return Promise.reject('WrongParam');
+    }
     const size = {
         x: words[0],
         y: words[1]
     };
     words = positionStr.split(' ');
+    if (words.length < 3) {
+        return Promise.reject('WrongParam');
+    }
     const position = {
         x: words[0],
         y: words[1],
         direction: words[2]
     };
-    if (position.x > size.x || position.y > size.y ) {
+    if (position.x > size.x || position.y > size.y || !rotationRule.includes(position.direction) ) {
         return Promise.reject('WrongParam');
     }
     setConfigOption('size', size);
