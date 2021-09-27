@@ -1,0 +1,14 @@
+{
+	"bail": 1,
+	"verbose": true,
+	"clearMocks": true,
+	"testPathIgnorePatterns": [
+		"<rootDir>/node_modules/",
+		"<rootDir>/__test__/__mock__"
+	],
+	"moduleDirectories": ["<rootDir>/src", "node_modules"],
+	"moduleNameMapper": {},
+	"transform": {
+		"^.+\\.tsx?$": "babel-jest"
+	  }
+}

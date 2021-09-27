@@ -1,0 +1,22 @@
+{
+  "name": "mower",
+  "version": "1.0.0",
+  "description": "programe test Mower",
+  "scripts": {
+    "watch": "webpack --progress --colors --watch",
+    "start": "npm run watch",
+    "build": "npm run build",
+    "test": "jest --config=./jest.config.json",
+    "docs": "npm run doc:all"
+  },
+  "main": "index.js",
+  "author": "ABA",
+  "license": "ISC",
+  "dependencies": {
+    "babel-jest": "^27.1.1",
+    "jest-cli": "^27.1.1"
+  },
+  "devDependencies": {
+    "jest": "^25.5.4"
+  }
+}
